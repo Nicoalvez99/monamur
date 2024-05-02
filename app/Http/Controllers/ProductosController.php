@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Productos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductosController extends Controller
 {
@@ -26,9 +27,30 @@ class ProductosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Productos $productos,  Request $request)
     {
-        //
+        $userId = Auth::user()->id;
+        $validateData = $request->validate([
+            "codigo" => 'max|20',
+            "nombre" => 'required',
+            "descripcion" => 'required',
+            "imagen" => 'required|mimes:jpg,jpeg,png',
+            "cantidad" => 'required',
+            "descuento" => 'numeric',
+            "precio" => 'required|numeric',
+        ]);
+
+        $productos->create([
+            "codigo" => $validateData["codigo"],
+            "nombre" => $validateData["nombre"],
+            "descripcion" => $validateData["descripcion"],
+            "imagen" => $validateData["imagen"],
+            "cantidad" => $validateData["cantidad"],
+            "descuento" => $validateData["descuento"],
+            "precio" => $validateData["precio"],
+            "user_id" => $userId
+        ]);
+        //return redirect()->route("")->with('status', 'Producto creado exitosamente');
     }
 
     /**

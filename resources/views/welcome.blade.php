@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
@@ -51,50 +52,43 @@
                             <a href="#" class="block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
                         </li>
                         @if (Route::has('login'))
-                            
-                                @auth
-                                <li>
-                                    <a
-                                        href="{{ url('/dashboard') }}"
-                                        class="block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                                    >
-                                        Dashboard
-                                    </a>
-                                </li>
-                                @else
-                                <li>
-                                    <a
-                                        href="{{ route('login') }}"
-                                        class="block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                                    >
-                                        Log in
-                                    </a>
-                                </li>
-                                    @if (Route::has('register'))
-                                    <li>
-                                        <a
-                                            href="{{ route('register') }}"
-                                            class="block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                                        >
-                                            Register
-                                        </a>
-                                    </li>
-                                    @endif
-                                @endauth
+
+                        @auth
+                        <li>
+                            <a href="{{ url('/dashboard') }}" class="block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                                Dashboard
+                            </a>
+                        </li>
+                        @else
+                        <li>
+                            <a href="{{ route('login') }}" class="block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                                Log in
+                            </a>
+                        </li>
+                        @if (Route::has('register'))
+                        <li>
+                            <a href="{{ route('register') }}" class="block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                                Register
+                            </a>
+                        </li>
+                        @endif
+                        @endauth
                         @endif
                     </ul>
                 </div>
             </div>
         </nav>
-        <section class="flex">
-            <div class="w-1/2">
-
-            </div>
-            <div class="w-1/2">
-                <img src="{{ asset('images/welcome-img-ropa.png') }}" class="mx-auto" width="450" alt="Ropa saltando">
-            </div>
-        </section>
     </header>
+    <section class="flex">
+        <div class="w-1/2">
+            <div class="px-8 bg-titulo">
+                <h2>Tu tienda<br>de ropa<br>online</h2>
+            </div>
+        </div>
+        <div class="w-1/2">
+            <img src="{{ asset('images/welcome-img-ropa.png') }}" class="mx-auto" width="450" alt="Ropa saltando">
+        </div>
+    </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
 

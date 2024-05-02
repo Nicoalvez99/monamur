@@ -1,9 +1,19 @@
+body {
+    background-color: rgb(219, 219, 219);
+}
 header {
     background: rgb(28,36,120);
     background: linear-gradient(128deg, rgba(28,36,120,1) 0%, rgba(30,19,77,1) 47%, rgba(90,21,108,1) 100%);
     border-radius: 0px 0px 30px 30px;
-    height: 90vh;
 }
 h1 {
     font-family: "Quicksand", sans-serif;
+}
+h2 {
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 100px;
+}
+.bg-titulo {
+    margin: 20px;
+    border-radius: 0px 20px;
 }
