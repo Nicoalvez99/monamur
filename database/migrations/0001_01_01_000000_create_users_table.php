@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('direccion');
-            $table->estado('estado')->default('simple');
-            $table->text('foto')->default('foto-default');
-            $table->text('banner')->default('banner-default');
+            $table->string('direccion')->nullable();
+            $table->string('estado')->nullable();
+            $table->text('foto')->nullable();
+            $table->text('banner')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

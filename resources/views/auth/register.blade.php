@@ -29,7 +29,7 @@
                             @csrf
                             <div class="mt-5">
                                 <label class="font-semibold text-sm text-gray-600 pb-1 block" for="nombre">Nombre</label>
-                                <input class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" type="text" id="name" required autofocus autocomplete="name"/>
+                                <input class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" type="text" id="name" name="name" required autofocus autocomplete="name"/>
                                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                 <label class="font-semibold text-sm text-gray-600 pb-1 block" for="login">E-mail</label>
                                 <input class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" type="email" name="email" id="email" />

@@ -16,7 +16,8 @@ class Productos extends Model
         'foto', 
         'talle', 
         'cantidad', 
-        'descuento', 
+        'descuento',
+        'precio',
         'user_id'
     ];
 }
