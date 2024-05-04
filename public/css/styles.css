@@ -42,3 +42,14 @@ h2 {
     background-size: cover;
     background-position: center;
 }
+
+.fondoImg {
+    display: inline-block; 
+    position: relative; 
+}
+
+.fondoImg img {
+    width: 100%; 
+    height: auto; 
+    display: block;
+}

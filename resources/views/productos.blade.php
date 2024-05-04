@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{{ asset('images/favicon-monamur.png') }}" type="image/x-icon">
     <title>Monamur Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('/assets/css/tailwind.output.css') }}" />
@@ -18,6 +19,7 @@
 
 <body>
     @include('components.modalProducto')
+    @include('components.session-status')
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- Desktop sidebar -->
         <aside class="z-20 hidden w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0">
@@ -363,16 +365,16 @@
                         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                             Mis productos
                         </h2>
-                        <button type="button" data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Agregar producto</button>
+                        <button type="button" data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 my-4">Agregar producto</button>
                     </div>
-                    <input type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" data-modal-target="crud-modal" data-modal-toggle="crud-modal" placeholder="Buscador de productos..." />
+                    <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscador de productos..." />
                     <!-- Productos -->
-                    <div class="grid grid-cols-4 gap-4">
+                    <div class="grid grid-cols-4 gap-4 my-4">
 
                         @foreach($totalProductos as $totalProducto)
                         <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                            <a href="#">
-                                <img class="p-8 rounded-t-lg" src="{{ asset('images/productos/') }}" alt="product image" />
+                            <a href="#" class="fondoImg">
+                                <img class="p-8 rounded-t-lg" src="{{ asset('images/productos/' . $totalProducto->imagen) }}" alt="product image" />
                             </a>
                             <div class="px-5 pb-5">
                                 <a href="#">
@@ -399,8 +401,8 @@
                                     <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
                                 </div>
                                 <div class="flex items-center justify-between">
-                                    <span class="text-3xl font-bold text-gray-900 dark:text-white">${{ $totalProducto->precio }}</span>
-                                    <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add to cart</a>
+                                    <span class="text-2xl font-bold text-gray-900 dark:text-white">${{ $totalProducto->precio }}</span>
+                                    <a href="#" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Editar</a>
                                 </div>
                             </div>
                         </div>

@@ -65,7 +65,7 @@ class ProductosController extends Controller
             "precio" => $validateData["precio"],
             "user_id" => $userId
         ]);
-        return redirect()->route("mis.productos");//->with('status', 'Producto creado exitosamente');
+        return redirect()->route("mis.productos")->with('status', 'Producto creado exitosamente');;
     }
 
     /**
