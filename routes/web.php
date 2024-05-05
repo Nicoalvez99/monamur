@@ -20,8 +20,9 @@ Route::get('/dashboard', function () {  //Dashboard
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/mis-productos', [ProductosController::class, 'index'])->name('mis.productos'); // Panel de productos
+Route::get('/editar-producto/{producto}', [ProductosController::class, 'edit'])->name('editar.producto'); //Página para editar producto
 Route::post('/productos', [ProductosController::class, 'store'])->name('productos.create'); // post de agregar producto
-
+Route::patch('/editar-producto/{producto}', [ProductosController::class, 'update'])->name('update.producto');
 //Auth
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
