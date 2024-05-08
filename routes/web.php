@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\ComprasController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MonamurMailer;
 
@@ -21,8 +22,11 @@ Route::get('/dashboard', function () {  //Dashboard
 })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/mis-productos', [ProductosController::class, 'index'])->name('mis.productos'); // Panel de productos
 Route::get('/editar-producto/{producto}', [ProductosController::class, 'edit'])->name('editar.producto'); //Página para editar producto
+Route::get('/gestion-ventas', [ComprasController::class, 'index'])->name('ventas');
 Route::post('/productos', [ProductosController::class, 'store'])->name('productos.create'); // post de agregar producto
+Route::post('/gestion-ventas', [ComprasController::class, 'store'])->name('ventas.store');
 Route::patch('/editar-producto/{producto}', [ProductosController::class, 'update'])->name('update.producto');
+Route::delete('/editar-producto/{producto}', [ProductosController::class, 'destroy'])->name('delete.producto');
 //Auth
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

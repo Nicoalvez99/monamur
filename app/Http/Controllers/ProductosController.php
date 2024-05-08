@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Productos;
+use App\Models\Categorias;
 use Illuminate\Support\Number;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\SaveProjectRequest;
-use Illuminate\Support\Facades\Storage;
+
 
 class ProductosController extends Controller
 {
@@ -18,9 +18,11 @@ class ProductosController extends Controller
     {
         $user = Auth::user()->id;
         $totalProductos = Productos::where('user_id', '=', $user)->get();
-
+        $categorias = Categorias::get('categoria');
+        
         return view('productos.productos', [
-            "totalProductos" => $totalProductos
+            "totalProductos" => $totalProductos,
+            "categorias" => $categorias
         ]);
     }
 
@@ -45,6 +47,7 @@ class ProductosController extends Controller
             "imagen" => 'required|mimes:jpg,jpeg,png',
             "talle" => 'required',
             "cantidad" => 'required|numeric',
+            "categoria" => 'required',
             "descuento" => 'numeric',
             "precio" => 'required|numeric',
         ]);
@@ -66,6 +69,7 @@ class ProductosController extends Controller
             "imagen" => $nameFinal,
             "talle" => $validateData["talle"],
             "cantidad" => $validateData["cantidad"],
+            "categoria" => $validateData["categoria"],
             "descuento" => $validateData["descuento"],
             "precio" => $validateData["precio"],
             "user_id" => $userId
@@ -86,7 +90,10 @@ class ProductosController extends Controller
      */
     public function edit($id)
     {
+        $categorias = Categorias::get('categoria');
+
         return view('productos.edit', [
+            'categorias' => $categorias,
             'producto' => Productos::findOrFail($id)
         ]);
     }
@@ -94,22 +101,12 @@ class ProductosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Productos $productos)
+    public function update(Request $request, Productos $producto)
     {
-        //dd($request->nombre);
-        $validateData = $request->validate([
-            "codigo" => 'max:40',
-            "nombre" => 'required',
-            "descripcion" => 'required',
-            "imagen" => 'required|mimes:jpg,jpeg,png',
-            "talle" => 'required',
-            "cantidad" => 'required|numeric',
-            "descuento" => 'numeric',
-            "precio" => 'required|numeric',
-        ]);
+        //dd($request->imagen);
         if ($request->hasFile('imagen')) {
-            
-            unlink('images/productos/' . $productos->imagen);
+
+            unlink('images/productos/' . $producto->imagen);
 
             $file = $request->file('imagen');
             $destinationPath = 'images/productos/';
@@ -117,26 +114,26 @@ class ProductosController extends Controller
             $request->file('imagen')->move($destinationPath, $fileName);
             $nameFinal = $fileName;
 
-
-            $productos->update([
-                "codigo" => $validateData["codigo"],
-                "nombre" => $validateData["nombre"],
-                "descripcion" => $validateData["descripcion"],
+            $producto->update([
+                "codigo" => $request->codigo,
+                "nombre" => $request->nombre,
+                "descripcion" => $request->descripcion,
                 "imagen" => $nameFinal,
-                "talle" => $validateData["talle"],
-                "cantidad" => $validateData["cantidad"],
-                "descuento" => $validateData["descuento"],
-                "precio" => $validateData["precio"],
+                "talle" => $request->talle,
+                "cantidad" => $request->cantidad,
+                "descuento" => $request->descuento,
+                "precio" => $request->precio,
             ]);
         } else {
-            $productos->update([
-                "codigo" => $validateData["codigo"],
-                "nombre" => $validateData["nombre"],
-                "descripcion" => $validateData["descripcion"],
-                "talle" => $validateData["talle"],
-                "cantidad" => $validateData["cantidad"],
-                "descuento" => $validateData["descuento"],
-                "precio" => $validateData["precio"],
+            //dd($request->nombre);
+            $producto->update([
+                "codigo" => $request->codigo,
+                "nombre" => $request->nombre,
+                "descripcion" => $request->descripcion,
+                "talle" => $request->talle,
+                "cantidad" => $request->cantidad,
+                "descuento" => $request->descuento,
+                "precio" => $request->precio,
             ]);
         }
         return redirect()->route('mis.productos')->with('status', 'Producto editado');
@@ -145,8 +142,10 @@ class ProductosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Productos $productos)
+    public function destroy(Productos $producto)
     {
-        //
+        unlink('images/productos/' . $producto->imagen);
+        $producto->delete();
+        return redirect()->route('mis.productos')->with('status', 'Producto eliminado');
     }
 }

@@ -11,18 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('productos', function (Blueprint $table) {
+        Schema::create('compras', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('codigo');
             $table->string('nombre');
-            $table->text('descripcion');
-            $table->text('imagen');
-            $table->string('talle');
+            $table->bigInteger('codigo');
             $table->integer('cantidad');
-            $table->string('categoria');
-            $table->integer('descuento')->default('0');
             $table->integer('precio');
-            $table->foreignId('user_id');
+            $table->integer('stock');
+            $table->string('categoria');
+            $table->integer('precioTotal');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('productos');
+        Schema::dropIfExists('compras');
     }
 };

@@ -40,7 +40,7 @@
                 <ul>
                     <li class="relative px-6 py-3">
                         <span class="absolute inset-y-0 left-0 w-1 bg-purple-600 rounded-tr-lg rounded-br-lg" aria-hidden="true"></span>
-                        <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="{{ route('dashboard') }}">
+                        <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100" href="{{ route('mis.productos') }}">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
                             </svg>
@@ -365,6 +365,10 @@
                         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
                             Mis productos - Editar
                         </h2>
+                        <form action="{{ route('delete.producto', $producto) }}" method="post">
+                            @csrf @method('delete')
+                            <button type="submit" class="my-4 text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Eliminar producto</button>
+                        </form>
                     </div>
                     <!-- Editar producto -->
                     <form action="{{ route('update.producto', $producto) }}" method="post" class="flex" enctype="multipart/form-data">
@@ -377,9 +381,9 @@
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                                         </svg>
                                         <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click para cargar imágen</span></p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">.jpg, .png o .jpeg (MAX. 800x400px)</p>
                                     </div>
-                                    <input id="dropzone-file" name="imagen" type="file" class="hidden" />
+                                    <input id="dropzone-file" name="imagen" type="file" />
                                 </label>
                             </div>
                             <img src="{{ asset('images/productos/' . $producto->imagen) }}" class="mx-auto rounded-lg my-3" alt="{{ $producto->nombre }}">
@@ -393,6 +397,13 @@
                             <input type="number" name="precio" id="precio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ $producto->precio }}" required>
                             <label for="codigo" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Talle</label>
                             <input type="text" name="talle" id="talle" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ $producto->talle }}" required>
+
+                            <label for="codigo" class="block mb-1 text-sm font-medium text-gray-900 dark:text-white">Categorías</label>
+                            <select name="categoria" id="categoria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400  dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
+                                @foreach($categorias as $categoria)
+                                <option value="{{ $categoria->categoria }}" {{ $categoria->categoria == $producto->categoria ? 'selected' : '' }}>{{ $categoria->categoria }}</option>
+                                @endforeach
+                            </select>
                             <div class="flex">
                                 <div>
                                     <label for="cantidad" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Cantidad en stock</label>

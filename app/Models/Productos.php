@@ -15,7 +15,8 @@ class Productos extends Model
         'imagen', 
         'foto', 
         'talle', 
-        'cantidad', 
+        'cantidad',
+        'categoria',
         'descuento',
         'precio',
         'user_id'
