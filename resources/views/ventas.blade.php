@@ -64,11 +64,11 @@
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
-                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="buttons.html">
+                        <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200" href="{{ route('historial') }}">
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path>
                             </svg>
-                            <span class="ml-4">Buttons</span>
+                            <span class="ml-4">Mi stock</span>
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
@@ -76,7 +76,7 @@
                             <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                                 <path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                             </svg>
-                            <span class="ml-4">Modals</span>
+                            <span class="ml-4">Historial</span>
                         </a>
                     </li>
                     <li class="relative px-6 py-3">
@@ -379,12 +379,13 @@
                         <div class="w-1/2 px-5 py-3">
                             <h4 class="text-3xl font-medium text-green-400">Total: ${{ Number::format($compras->sum('precioTotal')) }}</h4>
                             <p class="text-xl text-gray-900 dark:text-white">Vuelto: $0.00</p>
-
+                            <form action="{{ route('compra.delete') }}" method="post">
+                                @csrf @method('delete')
+                                <button type="submit" class="my-4 text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Cobrar</button>
+                            </form>
                         </div>
                     </div>
                     <div class="mt-3">
-
-
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -399,7 +400,7 @@
                                             Categoría
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Price
+                                            Precio
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             En Stock
@@ -435,7 +436,6 @@
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </main>
@@ -443,5 +443,4 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
-
 </html>

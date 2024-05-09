@@ -42,14 +42,15 @@ class ComprasController extends Controller
 
         foreach($aProductos as $producto) {
             if($producto->codigo == $input || $producto->nombre == $input) {
+                $precioDescuento = $producto->descuento > 0 ? $producto->precio - ($producto->precio * $producto->descuento / 100) : $producto->precio;
                 Compras::create([
                     "codigo" => $producto->codigo,
                     "nombre" => $producto->nombre,
                     "cantidad" => $cantidad,
-                    "precio" => $producto->precio,
+                    "precio" => $precioDescuento,
                     "stock" => $producto->cantidad,
                     "categoria" => $producto->categoria,
-                    "precioTotal" => $producto->precio * $cantidad,
+                    "precioTotal" => $precioDescuento * $cantidad,
                     "user_id" => $user->id
                 ]);
             }
@@ -86,6 +87,19 @@ class ComprasController extends Controller
      */
     public function destroy(Compras $compras)
     {
-        //
+        $user = Auth::user();
+        $comprasUsuario = Compras::where('user_id', $user->id)->get();
+
+        foreach($comprasUsuario as $compra) {
+            $codigoProducto = $compra->codigo;
+            $cantidadCompra = $compra->cantidad;
+
+            $producto = Productos::where('codigo', $codigoProducto)->first();
+            $producto->decrement('cantidad', $cantidadCompra);
+        }
+
+        Compras::where('user_id', $user->id)->delete();
+
+        return redirect()->route('ventas');
     }
 }
