@@ -8,14 +8,16 @@ use App\Http\Controllers\RecordsController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MonamurMailer;
 
+
 //Rutas web
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/mail-send', function() {
-   Mail::to('nicoalvez99@gmail.com')->send(new MonamurMailer()); 
-});
+/*Route::get('/mail-send', function() {
+    $userName = 'Nicolás Alvez';
+   Mail::to('nicoalvez99@gmail.com')->send(new MonamurMailer($userName));
+});*/
 
 //Rutas normales de usuario registrado
 Route::get('/dashboard', function () {  //Dashboard

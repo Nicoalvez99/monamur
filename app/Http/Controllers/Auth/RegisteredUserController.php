@@ -7,6 +7,8 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MonamurMailer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -44,6 +46,7 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        Mail::to($request->email)->send(new MonamurMailer($request->name)); //Mail de bienvenida
         Auth::login($user);
 
         return redirect(route('dashboard', absolute: false));

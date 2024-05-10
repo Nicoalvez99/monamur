@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,7 +17,7 @@ class MonamurMailer extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct(public $name)
     {
         //
     }
@@ -27,7 +28,7 @@ class MonamurMailer extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Monamur Mailer',
+            subject: 'Monamur - Bienvenida',
         );
     }
 
@@ -40,7 +41,7 @@ class MonamurMailer extends Mailable
             view: 'mail.hello',
         );
     }
-
+    
     /**
      * Get the attachments for the message.
      *
