@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\MailBienvenida;
 class RegisteredUserController extends Controller
 {
     /**
@@ -46,7 +47,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Mail::to($request->email)->send(new MonamurMailer($request->name)); //Mail de bienvenida
+        //Mail::to($request->email)->send(new MonamurMailer($request->name)); //Mail de bienvenida
+        Notification::send($user, new MailBienvenida($request->name));
         Auth::login($user);
 
         return redirect(route('dashboard', absolute: false));
