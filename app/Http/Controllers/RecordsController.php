@@ -52,6 +52,9 @@ class RecordsController extends Controller
                 // Almacenar en el arreglo asociativo
                 $ventasPorDiasSemana[$nombreDia] = $venta->cantidad_ventas;
             }
+        if(!isset($ventasPorDiasSemana)) {
+            $ventasPorDiasSemana = [];
+        }
         return view('charts', [
             "totalHistorial" => $chartTotal,
             "ventasPorDiasSemana" => $ventasPorDiasSemana

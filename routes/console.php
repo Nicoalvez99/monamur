@@ -10,5 +10,8 @@ Artisan::command('inspire', function () {
 
 Schedule::call(function() {
     DB::table('charts')->delete();
-})->sundays();
+})->wednesdays()->at('17:46');
 
+Artisan::command('schedule:run', function () {
+    DB::table('charts')->delete();
+})->wednesdays()->at('17:46');
