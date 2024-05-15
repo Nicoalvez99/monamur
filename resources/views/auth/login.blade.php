@@ -23,7 +23,9 @@
                 <div class="relative p-8 card py-10 h-full bg-white mx-8 shadow rounded-3xl sm:p-10">
                     <div class="max-w-md mx-auto">
                         <div class="items-center space-x-5 justify-center">
-                            <img src="{{ asset('images/favicon-monamur.png') }}" class="mx-auto" width="70" alt="monamur">
+                            <a href="{{ url('/') }}">
+                                <img src="{{ asset('images/favicon-monamur.png') }}" class="mx-auto" width="70" alt="monamur">
+                            </a>
                         </div>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
@@ -50,7 +52,7 @@
                         </form>
                         <div class="flex items-center justify-between mt-4">
                             <span class="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
-                            <a class="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline" href="#">o Registrate</a>
+                            <a class="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline" href="{{ route('register') }}">o Registrate</a>
                             <span class="w-1/5 border-b dark:border-gray-400 md:w-1/4"></span>
                         </div>
                     </div>

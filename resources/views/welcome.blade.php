@@ -86,7 +86,7 @@
             </div>
         </div>
         <div class="w-1/2">
-            <img src="{{ asset('images/welcome-img-ropa.png') }}" class="mx-auto" width="450" alt="Ropa saltando">
+            <img src="{{ asset('images/welcome-img-ropa.png') }}" class="mx-auto ropa" width="450" alt="Ropa saltando">
         </div>
     </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>

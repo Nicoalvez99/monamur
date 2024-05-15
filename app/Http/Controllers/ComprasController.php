@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Chart;
 use App\Models\Compras;
 use App\Models\Productos;
 use Illuminate\Http\Request;
@@ -85,18 +86,31 @@ class ComprasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Compras $compras)
+    public function destroy(Compras $compras, Chart $chart)
     {
         $user = Auth::user();
         $comprasUsuario = Compras::where('user_id', $user->id)->get();
-
+        $aProductos = [];
+        $totalCompra = 0;
         foreach($comprasUsuario as $compra) {
             $codigoProducto = $compra->codigo;
             $cantidadCompra = $compra->cantidad;
 
+            $aProductos[] = $compra->cantidad > 1 ? $compra->nombre . "(" . $compra->cantidad . ")" : $compra->nombre;
+            $totalCompra += $compra->precioTotal;
+
             $producto = Productos::where('codigo', $codigoProducto)->first();
             $producto->decrement('cantidad', $cantidadCompra);
         }
+
+        $cadenaProductos = implode(', ', $aProductos);
+
+        Chart::create([
+            "aProductos" => $cadenaProductos,
+            "total" => $totalCompra,
+            "user_id" => $user->id
+        ]);
+
 
         Compras::where('user_id', $user->id)->delete();
 
