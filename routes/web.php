@@ -7,12 +7,11 @@ use App\Http\Controllers\ComprasController;
 use App\Http\Controllers\RecordsController;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\MonamurMailer;
-
+use App\Models\Productos;
+use Illuminate\Support\Facades\Auth;
 
 //Rutas web
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ProductosController::class, 'indexSimple']);
 
 
 //Rutas normales de usuario registrado
@@ -24,6 +23,9 @@ Route::get('/editar-producto/{producto}', [ProductosController::class, 'edit'])-
 Route::get('/gestion-ventas', [ComprasController::class, 'index'])->middleware(['auth', 'verified'])->name('ventas');
 Route::get('/mi-stock', [RecordsController::class, 'indexStock'])->middleware(['auth', 'verified'])->name('historial');
 Route::get('/charts', [RecordsController::class, 'indexCharts'])->middleware(['auth', 'verified'])->name('charts');
+Route::get('/mensajes', function(){
+    return view('mensajes');
+})->name('mensajes');
 Route::post('/productos', [ProductosController::class, 'store'])->middleware(['auth', 'verified'])->name('productos.create'); // post de agregar producto
 Route::post('/gestion-ventas', [ComprasController::class, 'store'])->middleware(['auth', 'verified'])->name('ventas.store');
 Route::patch('/editar-producto/{producto}', [ProductosController::class, 'update'])->middleware(['auth', 'verified'])->name('update.producto');

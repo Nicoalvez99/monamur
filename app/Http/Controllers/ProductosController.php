@@ -14,6 +14,12 @@ class ProductosController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function indexSimple() {
+        $productos = Productos::get();
+        return view('welcome', [
+            "productos" => $productos
+        ]);
+    }
     public function index()
     {
         $user = Auth::user()->id;
