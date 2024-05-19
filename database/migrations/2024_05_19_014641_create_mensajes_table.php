@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('mensajes', function (Blueprint $table) {
             $table->id();
-            $table->integer('remitente');
+            $table->integer('user_id');
             $table->text('mensaje');
-            $table->integer('destinatario');
             $table->timestamps();
         });
     }

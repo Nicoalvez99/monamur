@@ -17,23 +17,20 @@ class MensajeEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $remitente;
+    public $username;
     public $mensaje;
-    public $destinatario;
     /**
      * Create a new event instance.
      */
-    public function __construct($remitente, $mensaje, $destinatario)
+    public function __construct($user_id, $mensaje)
     {
         $newMensaje = New Mensajes();
-        $newMensaje->remitente = $remitente;
+        $newMensaje->user_id = $user_id;
         $newMensaje->mensaje = $mensaje;
-        $newMensaje->destinatario = $destinatario;
         $newMensaje->save();
 
-        $this->remitente = $remitente;
         $this->mensaje = $mensaje;
-        $this->destinatario = User::find($destinatario)->name;
+        $this->username = User::find($user_id)->name;
     }
 
     /**

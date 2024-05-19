@@ -12,28 +12,27 @@ class ChatComponent extends Component
 {
     public $mensaje;
     public $conver = [];
-    public $destinatario;
-
+    
     public function mount(){
-        $mensajes = Mensajes::where('remitente', '=', Auth::user()->id);
-
+        $mensajes = Mensajes::all();
         foreach($mensajes as $mensaje){
             $this->conver[] = [
-                "destinatario" => $mensaje->destinatario,
+                "username" => $mensaje->user->name,
                 "mensaje" => $mensaje->mensaje
             ];
         }
     }
 
     public function submitMensaje() {
-        MensajeEvent::dispatch(Auth::user()->id, $this->mensaje, $this->destinatario);
+        MensajeEvent::dispatch(Auth::user()->id, $this->mensaje);
         $this->mensaje = "";
     }
+
     #[On('echo:our-channel,MensajeEvent')]
     public function listenForMensaje($data){
         $this->conver[] = [
-            "destinatario" => $data->destinatario,
-            "mensaje" => $data->mensaje
+            "username" => $data['username'],
+            "mensaje" => $data['mensaje']
         ];
     }
     public function render()
