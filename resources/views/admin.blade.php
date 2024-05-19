@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="{{ asset('images/favicon-monamur.png') }}" type="image/x-icon">
-    <title>Monamur - Historial</title>
+    <title>Monamur - Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('/assets/css/tailwind.output.css') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -30,7 +30,7 @@
                 <div class="container px-6 mx-auto grid">
                     <div class="flex justify-between">
                         <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                            En Stock
+                            Administrador
                         </h2>
                     </div>
                     <input type="text" data-table="table_id" class="light-table-filter bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscador de productos..." />
@@ -40,25 +40,13 @@
                                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                     <tr>
                                         <th scope="col" class="px-6 py-3">
-                                            Nombre del producto
+                                            Nombre
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Código
+                                            Email
                                         </th>
                                         <th scope="col" class="px-6 py-3">
-                                            Categoría
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Talle
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Precio
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            Descuento
-                                        </th>
-                                        <th scope="col" class="px-6 py-3">
-                                            En Stock
+                                            Estado
                                         </th>
                                         <th scope="col" class="px-6 py-3">
                                             <span class="sr-only">Edit</span>
@@ -66,31 +54,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($productos as $producto)
+                                    @foreach($users as $user)
                                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $producto->nombre }}
+                                            {{ $user->name }}
                                         </th>
                                         <td class="px-6 py-4">
-                                            {{ $producto->codigo }}
+                                            {{ $user->email }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $producto->categoria }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $producto->talle }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            ${{ Number::format($producto->precio) }}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $producto->descuento }}%
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {{ $producto->cantidad }}
+                                            {{ $user->estado }}
                                         </td>
                                         <td class="px-6 py-4 text-right">
-                                            <a href="{{ route('editar.producto', $producto->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="bi bi-pencil-square"></i></a>
+                                            <a href="" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="bi bi-pencil-square"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach

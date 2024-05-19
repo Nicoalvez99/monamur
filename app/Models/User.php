@@ -23,6 +23,7 @@ class User extends Authenticatable
         'estado',
         'foto',
         'banner',
+        'estado',
         'password',
     ];
 
